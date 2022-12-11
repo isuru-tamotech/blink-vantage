@@ -1,0 +1,103 @@
+{
+    "name": "Blink Counter",
+    "description": "This engine will count blinks",
+    "logo": "https://va-engine-info.s3-ap-southeast-1.amazonaws.com/test-engine/logo.jpg",
+    "company": "Nervotec",
+    "companyLogo": "https://va-engine-info.s3-ap-southeast-1.amazonaws.com/test-engine/company-logo.png",
+    "companyUrl": "https://www.company-a.com",
+    "pricing": {},
+    "type": "blink-engine",
+    "input": {
+        "fields": [
+            {
+                "name": "engineSetting1",
+                "label": "Engine Setting 1",
+                "inputType": "text",
+                "type": "number",
+                "default": 20,
+                "min": 15,
+                "step": 1
+            }
+        ],
+        "fps": {
+            "values": [
+                {
+                    "value": "3",
+                    "label": "3 Frames every second"
+                },
+                {
+                    "value": "5",
+                    "label": "5 Frames every second"
+                }
+            ],
+            "default": 3,
+            "label": "Processing FPS"
+        }
+    },
+
+    "realtime": [
+        {
+            "os": "linux",
+            "instanceType": "c5a.large",
+            "input": [
+                {
+                "name": "ENGINE_SETTING_1",
+                "value": "{{engineSetting1}}"
+                }
+            ]
+        }
+    ],
+
+    "output": {
+        "value": "test-engine",
+        "name": "Test Engine",
+        "queryableAttributes": [
+            "blinks"
+        ],
+        "blinks": {
+            "type": "number",
+            "ui": {
+                "attribute": {
+                    "name": "Blink Count",
+                    "value": "blinks"
+                },
+                "operator": [
+                    {
+                        "name": "Greater than",
+                        "value": "greaterThan"
+                    },
+                    {
+                        "name": "Lesser than",
+                        "value": "lesserThan"
+                    }
+                ],
+                "value": {
+                    "inputType": "text",
+                    "type": "number",
+                    "minimum": 0
+                }
+            }
+        },
+        
+        "display": {
+            "frame": {
+                "name": "base64",
+                "label": "frame"
+            },
+            "box": {
+                "image": {
+                    "name": "detectedbase64",
+                    "label": "Face",
+                    "type": "image"
+                },
+                "fields": [
+                    {
+                        "name": "blinks",
+                        "label": "Blink Count",
+                        "type": "text"
+                    }
+                ]
+            }
+        }
+    }
+}
